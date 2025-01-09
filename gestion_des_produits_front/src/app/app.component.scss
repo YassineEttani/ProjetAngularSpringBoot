@@ -1,0 +1,38 @@
+/* Style de la barre de navigation */
+.navbar {
+    background-color: #4CAF50;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .navbar-link {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 15px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .navbar-link:hover {
+    background-color: #45a049;
+    color: #ffffff;
+  }
+  
+  .navbar span {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 10px;
+  }
+  

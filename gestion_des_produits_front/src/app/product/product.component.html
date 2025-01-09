@@ -1,0 +1,122 @@
+<div class="container mx-auto p-6">
+  <!-- En-tête de Page -->
+  <h1 class="text-3xl font-bold mb-6 text-center">Gestion des Produits</h1>
+
+  <!-- Section Supérieure : Filtre et Bouton Ajouter -->
+  <div class="mb-6 flex justify-between items-center">
+    <!-- Filtre par Catégorie -->
+    <div class="category-filter flex items-center space-x-4">
+      <label for="category-select" class="font-medium text-gray-700">Filtrer par Catégorie :</label>
+      <select 
+        id="category-select" 
+        [(ngModel)]="selectedCategoryId" 
+        (change)="onCategoryChange()"
+        class="px-3 py-2 border rounded-md shadow-sm"
+      >
+        <option value="0">Toutes les Catégories</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Bouton Ajouter Produit -->
+    <br/>
+    <button 
+      (click)="showAddProductForm = true"
+      class="add-btn"
+    >
+      Ajouter un Produit
+    </button>
+  </div>
+  <br/>
+
+<!-- Formulaire Ajouter/Modifier Produit -->
+<div *ngIf="showAddProductForm" class="form-container">
+  <h2>{{ isEditMode ? 'Modifier le Produit' : 'Ajouter un Nouveau Produit' }}</h2>
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+    <!-- Champ Nom -->
+    <div>
+      <label for="name">Nom</label>
+      <input 
+        id="name" 
+        type="text" 
+        formControlName="name"
+      />
+      <div *ngIf="productForm.get('name')?.invalid" class="text-red-500">
+        <small *ngIf="productForm.get('name')?.errors?.['required']">Le nom est requis</small>
+      </div>
+    </div>
+
+    <!-- Champ Prix -->
+    <div>
+      <label for="price">Prix</label>
+      <input 
+        id="price" 
+        type="number" 
+        formControlName="price"
+      />
+      <div *ngIf="productForm.get('price')?.invalid" class="text-red-500">
+        <small *ngIf="productForm.get('price')?.errors?.['required']">Le prix est requis</small>
+      </div>
+    </div>
+
+    <!-- Champ Catégorie -->
+    <div>
+      <label for="category">Catégorie</label>
+      <select id="category" formControlName="categoryId">
+        <option value="0">Sélectionner une Catégorie</option>
+        <option *ngFor="let category of categories" [value]="category.id">
+          {{ category.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Boutons -->
+    <div class="flex space-x-4">
+      <button 
+        type="submit" 
+        [disabled]="productForm.invalid"
+        class="submit-btn"
+      >
+        {{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}
+      </button>
+      <button 
+        type="button" 
+        (click)="resetForm()"
+        class="cancel-btn"
+      >
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>
+
+  <!-- Tableau des Produits -->
+  <div class="overflow-x-auto shadow-lg rounded-lg">
+    <table class="w-full border-collapse text-sm text-left">
+      <!-- En-tête du Tableau -->
+      <thead class="bg-green-500 text-white">
+        <tr>
+          <th class="px-6 py-3">ID</th>
+          <th class="px-6 py-3">Nom</th>
+          <th class="px-6 py-3">Prix</th>
+        </tr>
+      </thead>
+
+      <!-- Lignes du Tableau -->
+      <tbody>
+        <tr 
+          *ngFor="let product of filteredProducts" 
+          class="hover:bg-gray-50 border-b"
+        >
+          <td class="px-6 py-4">{{ product.id }}</td>
+          <td class="px-6 py-4">{{ product.name }}</td>
+          <td class="px-6 py-4">{{ product.price | currency:'EUR' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
