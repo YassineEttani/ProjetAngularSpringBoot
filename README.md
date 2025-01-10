@@ -3,6 +3,7 @@
 This is a web application for managing a product catalog. The app is built with *Angular* (frontend) and *Spring Boot* (backend).
 
 ---
+
 <div>
    La page d'acceuille : 
    
